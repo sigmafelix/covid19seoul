@@ -51,3 +51,7 @@ corona_parse_seoul <- function(pids, dfmode = TRUE){
 }
 
 cha3 <- corona_parse_seoul(unlist(tab10[,2]))
+
+cha3.df <- cha3 %>% 
+  lapply(function(x) tryCatch({x %>% do.call(rbind, .) %>% data.frame}, error = function(e) print(e))) %>% 
+  Reduce(bind_rows, .)
